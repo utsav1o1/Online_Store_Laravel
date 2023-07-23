@@ -49,7 +49,6 @@ class CartController extends Controller
     {
         $productsInSession = $request->session()->get("products");
         if ($productsInSession) {
-            // $userId = Auth::user()->getId();
             $userId = Auth::user()->id;
             $order = new Order();
             $order->setUserId($userId);
@@ -79,6 +78,7 @@ class CartController extends Controller
             $viewData["title"] = "Purchase - Online Store";
             $viewData["subtitle"] = "Purchase Status";
             $viewData["order"] = $order;
+            $viewData["balance"] = $newBalance;
             return view('cart.purchase')->with("viewData", $viewData);
         } else {
             return redirect()->route('cart.index');
